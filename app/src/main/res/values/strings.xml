@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">GCash</string>
+    <string name="card_title">CHARMANDER</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="pin">Security PIN</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
+
+    <string-array name="spinnerItems">
+        <item>Item 1</item>
+        <item>Item 2</item>
+        <item>Item 3</item>
+    </string-array>
+
+</resources>
