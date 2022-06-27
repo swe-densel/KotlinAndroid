@@ -8,11 +8,14 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import ph.gcash.cadet.denselross.serrano.sample.adapter.NameAdapter
+import ph.gcash.cadet.denselross.serrano.sample.adapter.PokemonInfoAdapter
 import ph.gcash.cadet.denselross.serrano.sample.api.PokemonAPI
 import ph.gcash.cadet.denselross.serrano.sample.api.PokemonAPIClient
 import ph.gcash.cadet.denselross.serrano.sample.databinding.ActivityPokemonBinding
 import ph.gcash.cadet.denselross.serrano.sample.model.PokemonListResponse
 import ph.gcash.cadet.denselross.serrano.sample.model.PokemonURL
+import ph.gcash.cadet.denselross.serrano.sample.ui.PokemonImageFragment
+import ph.gcash.cadet.denselross.serrano.sample.ui.PokemonInfoFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,12 +28,17 @@ class PokemonActivity : AppCompatActivity() {
     private lateinit var itemTouchHelper: ItemTouchHelper
     private lateinit var recyclerViewAdapter: NameAdapter
 
+    private val pokemonInfoFragment = PokemonInfoFragment()
+    private val pokemonImageFragment = PokemonImageFragment()
+    private lateinit var pokemonInfoAdapter: PokemonInfoAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPokemonBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         init()
+        initFragments()
         recyclerViewAdapter = NameAdapter(applicationContext, names)
 //        binding.rvPokemons.adapter = recyclerViewAdapter
 //        binding.rvPokemons.layoutManager = GridLayoutManager(applicationContext,3)
@@ -92,5 +100,12 @@ class PokemonActivity : AppCompatActivity() {
 
             }
         })
+    }
+
+    private fun initFragments(){
+        pokemonInfoAdapter = PokemonInfoAdapter(supportFragmentManager)
+        pokemonInfoAdapter.add(pokemonInfoFragment, "Pokemon Information")
+        pokemonInfoAdapter.add(pokemonImageFragment, "Pokemon Image")
+        binding.vpPokemon.adapter = pokemonInfoAdapter
     }
 }

@@ -1,12 +1,14 @@
 package ph.gcash.cadet.denselross.serrano.sample.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import ph.gcash.cadet.denselross.serrano.sample.GCashApplication
 import ph.gcash.cadet.denselross.serrano.sample.api.PokemonAPIClient
 import ph.gcash.cadet.denselross.serrano.sample.databinding.ItemNameBinding
 import ph.gcash.cadet.denselross.serrano.sample.model.PokemonInfoResponse
@@ -48,7 +50,7 @@ class NameAdapter(private val context: Context,
             }
 
             itemBinding.btnCall.setOnClickListener {
-                Snackbar.make(itemBinding.root, "GO $data!", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(itemBinding.root, "GO ${data.name}!", Snackbar.LENGTH_SHORT).show()
 
                 getData(data.url.getPokemonID())
             }
@@ -64,9 +66,24 @@ class NameAdapter(private val context: Context,
                 call: Call<PokemonInfoResponse>,
                 response: Response<PokemonInfoResponse>
             ) {
-                val response: PokemonInfoResponse = response.body()!!
-                Log.d("API Pokemon CALL", "${response.sprites.frontDefault}")
-                Log.d("API Pokemon CALL", response.name)
+                val pokemonInfoResponse: PokemonInfoResponse = response.body()!!
+                Log.d("API Pokemon CALL", "${pokemonInfoResponse.sprites.frontDefault}")
+                Log.d("API Pokemon CALL", pokemonInfoResponse.name)
+
+                Intent().also {
+                    it.action = GCashApplication.BROADCASTLOADIMAGE
+                    it.putExtra("data", pokemonInfoResponse.sprites.frontDefault)
+                    context.sendBroadcast(it)
+                }
+
+                Intent().also {
+                    it.action = GCashApplication.BROADCASTLOADDATA
+                    it.putExtra("name", pokemonInfoResponse.name)
+                    it.putExtra("id", pokemonInfoResponse.id)
+                    it.putExtra("height", pokemonInfoResponse.height)
+                    context.sendBroadcast(it)
+                }
+
             }
 
             override fun onFailure(call: Call<PokemonInfoResponse>, t: Throwable) {

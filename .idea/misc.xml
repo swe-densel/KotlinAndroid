@@ -8,6 +8,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_pokemon.xml" value="0.30978260869565216" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.30978260869565216" />
+        <entry key="app/src/main/res/layout/fragment_pokemon_image.xml" value="0.33106884057971014" />
+        <entry key="app/src/main/res/layout/fragment_pokemon_info.xml" value="0.33106884057971014" />
         <entry key="app/src/main/res/layout/item_name.xml" value="0.25" />
       </map>
     </option>
